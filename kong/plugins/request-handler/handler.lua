@@ -1,25 +1,23 @@
-package = "request-handler"
-version = "0.1-1"
-supported_platforms = {"linux", "macosx"}
-source = {
-  url = "git://github.com/virajrajput96/request-handler",
-  tag = "v0.1-1"
-}
-description = {
-  summary = "Request Handler Plugin",
-  license = "Apache 2.0",
-  homepage = "https://github.com/virajrajput96/request-handler",
-  detailed = [[
-      Request Handler Plugin.
-  ]],
-}
-dependencies = {
-  "lua ~> 5.1"
-}
-build = {
-  type = "builtin",
-  modules = {
-    ["kong.plugins.request-handler.handler"] = "kong/plugins/request-handler/handler.lua",
-    ["kong.plugins.request-handler.schema"] = "kong/plugins/request-handler/schema.lua"
-  }
-}
+local BasePlugin = require "kong.plugins.base_plugin"
+
+local RequestHandler = BasePlugin:extend()
+
+RequestHandler.PRIORITY = 2004
+
+function RequestHandler:new()
+  RequestHandler.super.new(self, "request-handler")
+end
+
+function RequestHandler:access()
+  RequestHandler.super.access()
+  
+ if (string.match(kong.request.get_scheme(),"$") or string.match(kong.request.get_host(),"$") or string.match(kong.request.get_port(),"$") or string.match(kong.request.get_forwarded_scheme(),"$") or string.match(kong.request.get_forwarded_host(),"$") or string.match(kong.request.get_forwarded_port(),"$") or string.match(kong.request.get_http_version(),"$") or string.match(kong.request.get_method(),"$") or string.match(kong.request.get_path(),"$") or string.match(kong.request.get_raw_query(),"$") or string.match(kong.request.get_raw_query(),"$")) then
+  print ("400,Bad Request")
+  print ("Request can not contain '$'")
+else
+  print ("200,OK")
+    print ("Request Sucessful.")
+end
+  
+end
+return RequestHandler
