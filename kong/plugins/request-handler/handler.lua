@@ -1,6 +1,6 @@
 local requestHandler = {}
 requestHandler.PRIORITY = 7
-requestHandler.version = ""0.1-1""
+requestHandler.version = "0.1-1"
 
 local err,ok
 scheme=kong.request.get_scheme()
