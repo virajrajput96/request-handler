@@ -1,23 +1,23 @@
-local BasePlugin = require "kong.plugins.base_plugin"
+local requestHandler = {}
+requestHandler.PRIORITY = 7
+requestHandler.version = "0.1.1"
 
-local RequestHandler = BasePlugin:extend()
+local err,ok
+scheme=kong.request.get_scheme()
+f_scheme=kong.request.get_forwarded_scheme()
+forwarded_host=kong.request.get_forwarded_host()
+method=kong.request.get_method()
+path=kong.request.get_path()
 
-RequestHandler.PRIORITY = 2004
-
-function RequestHandler:new()
-  RequestHandler.super.new(self, "request-handler")
+function requestHandler:log(conf)
+ 
+ if not (string.match(scheme,"$") or string.match(host,"$") or string.match(port,"$") or string.match(f_scheme,"$") or string.match(forwarded_host(),"$") or string.match(method,"$") or string.match(path,"$")) then
+   return kong.log.debug("Successful Request")
+ else
+   return kong.log.debug("Mission Failed")
+end
 end
 
-function RequestHandler:access()
-  RequestHandler.super.access()
-  
- if (string.match(kong.request.get_scheme(),"$") or string.match(kong.request.get_host(),"$") or string.match(kong.request.get_port(),"$") or string.match(kong.request.get_forwarded_scheme(),"$") or string.match(kong.request.get_forwarded_host(),"$") or string.match(kong.request.get_forwarded_port(),"$") or string.match(kong.request.get_http_version(),"$") or string.match(kong.request.get_method(),"$") or string.match(kong.request.get_path(),"$") or string.match(kong.request.get_raw_query(),"$") or string.match(kong.request.get_raw_query(),"$")) then
-  ngx.log(ngx.ERR, "Request")
-  ngx.header["Request-handler"] = "Successful Request!!!"
-else
-  ngx.log(ngx.ERR, "Bad Request")
-  ngx.header["Request-Handler"] = "Bad Request!!!"
-end
-  
-end
-return RequestHandler
+return requestHandler
+
+
