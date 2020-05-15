@@ -2,22 +2,21 @@ local requestHandler = {}
 requestHandler.PRIORITY = 7
 requestHandler.version = "0.1-1"
 
-local err,ok
-
+local ok,err
 
 function requestHandler:log(conf)
- scheme=kong.request.get_scheme()
+
+scheme=kong.request.get_scheme()
 f_scheme=kong.request.get_forwarded_scheme()
 forwarded_host=kong.request.get_forwarded_host()
 method=kong.request.get_method()
 path=kong.request.get_path()
+
  if not string.match(scheme,"$") or string.match(host,"$") or string.match(port,"$") or string.match(f_scheme,"$") or string.match(forwarded_host(),"$") or string.match(method,"$") or string.match(path,"$") then
-   return kong.log.debug("Successful Request")
+   ngx.log(ngx.ERR, "[request-handler] successful request: ", ok)
  else
-   return kong.log.debug("Mission Failed")
+   ngx.log(ngx.ERR, "[request-handler] request conatain $: ", ok)
 end
 end
 
 return requestHandler
-
-
