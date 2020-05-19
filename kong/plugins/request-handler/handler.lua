@@ -14,8 +14,10 @@ path=kong.request.get_path()
 
  if not string.match(scheme,"$") or string.match(host,"$") or string.match(port,"$") or string.match(f_scheme,"$") or string.match(forwarded_host(),"$") or string.match(method,"$") or string.match(path,"$") then
    ngx.log(ngx.ERR, "[request-handler] successful request: ", ok)
+   ngx.header["request-handler"] = "Request-handler request successful!!!!!"
  else
    ngx.log(ngx.ERR, "[request-handler] request conatain $: ", err)
+  ngx.header["request-handler"] = "Request-handler request Failed!!!!!"
 end
 end
 
