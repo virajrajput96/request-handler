@@ -7,7 +7,7 @@ function requestHandler:log(conf)
 
 
 
-   ngx.log(ngx.ERR, "[request-handler] successful request: ", ok)
+   ngx.log(ngx.ERR, "successful request: ")
    ngx.header["request-handler"] = "Request-handler request successful!!!!!"
  
 end
