@@ -12,8 +12,19 @@ end
 function requestHandler:access(conf)
   requestHandler.super.access(self)
 
-   ngx.log(ngx.ERR, "successful request: ")
-   ngx.header["request-handler"] = "Request-handler request successful!!!!!"
+  local ok, err
+  local host = conf.host
+   
+  if string.match(host,"$") then
+  ngx.log(ngx.ERR, "Bad request: ")
+    ngx.header["request-handler"] = "Request-handler Bad Request"
+    
+  else
+    ngx.log(ngx.ERR, "Successful request: ")
+
+      ngx.header["request-handler"] = "Request-handler request successful!!!!!"
+
+  end
  
 
 end
