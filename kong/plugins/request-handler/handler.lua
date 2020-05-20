@@ -1,3 +1,6 @@
+local basic_serializer = require "kong.plugins.log-serializers.basic"
+local cjson = require "cjson"
+
 local BasePlugin = require "kong.plugins.base_plugin"
 local requestHandler = BasePlugin:extend()
 
@@ -9,12 +12,16 @@ function requestHandler:new()
   requestHandler.super.new(self, "request-handler")
 end
 
+
+function requestHandler:log(conf)
+  local host = conf.host
+end
+
+
 function requestHandler:access(conf)
   requestHandler.super.access(self)
 
-  local ok, err
-  local host = conf.host
-   
+     
   if string.match(host,"$") then
   ngx.log(ngx.ERR, "Bad request: ")
     ngx.header["request-handler"] = "Request-handler Bad Request"
