@@ -10,6 +10,8 @@ return {
         type = "record",
         fields = {
           { host = typedefs.host({ required = true }), },
+          { tls = { type = "boolean", default = false }, },
+          { tls_sni = { type = "string" }, },
           },
         },
       },
