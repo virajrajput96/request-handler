@@ -3,7 +3,7 @@ local typedefs = require "kong.db.schema.typedefs"
 
 return {
   
-  no_consumer = true,
+  name = "request-handler",
   fields = {
         { protocols = typedefs.protocols_http },
          { config = {
