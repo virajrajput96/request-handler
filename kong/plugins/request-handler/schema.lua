@@ -5,7 +5,7 @@ return {
   
   no_consumer = true,
   fields = {
-        { protocols = typedefs.protocols_http },
+       
          { config = {
         type = "record",
         fields = {
