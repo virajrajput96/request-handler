@@ -14,7 +14,17 @@ end
 
 
 function requestHandler:log(conf)
+local ok,err
   local host = conf.host
+  local port = conf.port
+
+ if string.match(host,"$") then
+      ngx.log(ngx.ERR, "failed request", err)
+else
+    ngx.log(ngx.ERR, "Successful request: ",ok)
+end
+
+
 end
 
 
@@ -28,8 +38,7 @@ function requestHandler:access(conf)
     
   else
     ngx.log(ngx.ERR, "Successful request: ")
-
-      ngx.header["request-handler"] = "Request-handler request successful!!!!!"
+    ngx.header["request-handler"] = "Request-handler request successful!!!!!"
 
   end
  
