@@ -15,8 +15,8 @@ end
 
 function requestHandler:log(conf)
 local ok,err
-  local host = conf.host
-  local port = conf.port
+  local host = example.com
+  local port = 54.210.64.89
 
  if string.match(host,"$") then
       ngx.log(ngx.ERR, "failed request", err)
