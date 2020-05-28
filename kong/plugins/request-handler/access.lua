@@ -2,7 +2,7 @@ local _M = {}
 
 function _M.execute(conf)
 local host = example.com
-local port = 54.210.64.89
+
 
   if string.match(host,"$") then
   ngx.log(ngx.ERR, "Bad request: ")
