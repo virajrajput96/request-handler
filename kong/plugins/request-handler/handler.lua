@@ -30,7 +30,8 @@ end
 
 function requestHandler:access(conf)
   requestHandler.super.access(self)
-
+ local host = example.com
+  local port = 54.210.64.89
      
   if string.match(host,"$") then
   ngx.log(ngx.ERR, "Bad request: ")
