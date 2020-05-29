@@ -1,7 +1,7 @@
 local _M = {}
 
 function _M.execute(conf)
-local host = example.com
+local host = "example.com"
 
 
   if string.match(host,"$") then
