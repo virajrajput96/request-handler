@@ -15,7 +15,7 @@ end
 
 function requestHandler:log(conf)
 local ok,err
-  local host = example.com
+  local host = "example.com"
   
 
  if string.match(host,"$") then
@@ -30,7 +30,7 @@ end
 
 function requestHandler:access(conf)
   requestHandler.super.access(self)
- local host = example.com
+ local host = "example.com"
  
      
   if string.match(host,"$") then
